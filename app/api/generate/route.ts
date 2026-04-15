@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "No CSV file provided" }, { status: 400 });
   }
 
-  const text = await file.text();
+  const text = (await file.text()).replace(/^\uFEFF/, "");
 
   let records: { id: string; number: string }[];
   try {
